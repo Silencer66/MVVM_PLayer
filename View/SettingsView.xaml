@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MVVM_PLayer.View.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVM_PLayer.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="600">
+    <Grid Background="Black">
+        <Border Background="#E5333333" CornerRadius="10" Width="325" Height="325">
+            <Grid>
+                <GroupBox Style="{DynamicResource GroupBoxStyle}">
+                    <StackPanel Focusable="False" Orientation="Vertical" VerticalAlignment="Center">
+                        <Button Style ="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" 
+                                Command="{Binding AddDirectoryCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="20" FontWeight="ExtraBold"
+                                           Margin ="20 0 0 0" Text="Добавить библиотеку"
+                                           FontFamily="Century Gothic"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style ="{DynamicResource ButtonStyle}" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="20" FontWeight="ExtraBold"
+                                           Margin ="20 0 0 0" Text="Управление библиотеками" 
+                                           FontFamily="Century Gothic" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style ="{DynamicResource ButtonStyle}" HorizontalAlignment="Center" 
+                                Command="{Binding PlayerCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="20" FontWeight="ExtraBold"
+                                           Margin ="20 0 0 0" Text="На главную"
+                                           FontFamily="Century Gothic"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </Border>
+
+        </Grid>
+</UserControl>

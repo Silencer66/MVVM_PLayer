@@ -1,0 +1,83 @@
+﻿<Window x:Class="MVVM_PLayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:MVVM_PLayer.ViewModel"
+        xmlns:views="clr-namespace:MVVM_PLayer.View"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Title="{Binding Path=Title}"
+        Height="550" 
+        Width="650" Icon="../../images/logo.png"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome ResizeBorderThickness="1" CaptionHeight="1" GlassFrameThickness="0" CornerRadius="10" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:PlayerViewModel}">
+            <views:PlayerView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+            <views:SettingsView/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <DockPanel x:Name="RootWindow">
+        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Background="#2f3033" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding HeaderMouseDownCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <DockPanel.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding HeaderDoubleClick}"/>
+            </DockPanel.InputBindings>
+            <Border Background="#2f3033" Height="25" VerticalAlignment="Top" Opacity="1" CornerRadius="10">
+                <Grid Opacity="1" >
+                    <!-- Window title -->
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Background="Transparent">
+                        <Button Style="{DynamicResource WindowControlButtons}" Background="#e63c30"
+                                                    Command="{Binding CloseApplicationButton}">
+                            <materialDesign:PackIcon Kind="WindowClose" Height="13" Opacity="0.5"></materialDesign:PackIcon>
+                        </Button>
+                        <Button Style="{DynamicResource WindowControlButtons}" Background="#f09f26"
+                                                    Command="{Binding MinimizeApplicationButton}">
+                            <materialDesign:PackIcon Kind="WindowMinimize" Height="13" Opacity="0.5"></materialDesign:PackIcon>
+                        </Button>
+                        <Button Style="{DynamicResource WindowControlButtons}" Background="#4cba5f" 
+                                                    Command="{Binding MaximizeApplicationButton}" >
+                            <materialDesign:PackIcon Kind="WindowMaximize" Height="13" Opacity="0.5" ></materialDesign:PackIcon>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Opacity="1" Text="{Binding Title}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Century Gothic" FontWeight="Bold"/>
+
+                </Grid>
+            </Border>
+        </DockPanel>
+        <tb:TaskbarIcon Visibility="Visible" ToolTipText="{Binding Title}" IconSource="../../images/logo.ico">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TrayLeftMouseDown">
+                    <i:InvokeCommandAction Command="{Binding TrayLeftMouseDownCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </tb:TaskbarIcon>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+    </DockPanel>
+</Window>
